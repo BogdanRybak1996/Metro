@@ -1,0 +1,2 @@
+D:\Docs\Курсова\Metro\Metro\bin\Debug\Metro.exe.config
+E:\Docs\Курсова\Metro\Metro\bin\Debug\Metro.exe.config
