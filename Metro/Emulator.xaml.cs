@@ -10,25 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Metro
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Emulator.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Emulator : Window
     {
-        public MainWindow()
+        public Emulator()
         {
             InitializeComponent();
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            Emulator em = new Emulator();
-            em.Show();
+            /*Відразу будуємо дві лінії метро*/
+            MetroLine rightLine = new MetroLine();
+            MetroLine leftLine = new MetroLine();
+            mainCanvas.Children.Add(rightLine.draw(280));
+            mainCanvas.Children.Add(leftLine.draw(320));
         }
     }
 }

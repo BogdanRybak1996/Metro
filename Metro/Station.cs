@@ -10,25 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace Metro
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    /*Абстрактний клас для різного типу станцій*/
+    abstract class Station
     {
-        public MainWindow()
+        private string name;
+        private Label display = new Label();
+        
+        public string Name
         {
-            InitializeComponent();
+            get { return name; }
+            set { name = value; }
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            Emulator em = new Emulator();
-            em.Show();
+        virtual public Ellipse draw() {
+
         }
     }
 }
