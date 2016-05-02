@@ -55,10 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Depot.cs" />
     <Compile Include="Emulator.xaml.cs">
       <DependentUpon>Emulator.xaml</DependentUpon>
     </Compile>
     <Compile Include="MetroLine.cs" />
+    <Compile Include="StandartStation.cs" />
     <Compile Include="Station.cs" />
     <Page Include="Emulator.xaml">
       <SubType>Designer</SubType>

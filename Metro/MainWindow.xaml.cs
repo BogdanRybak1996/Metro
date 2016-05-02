@@ -20,6 +20,11 @@ namespace Metro
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static int countOfStations = 2;           // Кількість станцій обирає користувач (статичні - через те, що головне вікно одне, до того ж, ми не можемо взяти його об'єкт)
+        public static int CountOfStations                     
+        {
+            get { return countOfStations; }
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -29,6 +34,11 @@ namespace Metro
         {
             Emulator em = new Emulator();
             em.Show();
+        }
+
+        private void CBcountOfStations_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            countOfStations = Convert.ToInt32(((ListBoxItem)CBcountOfStations.SelectedItem).Content);
         }
     }
 }

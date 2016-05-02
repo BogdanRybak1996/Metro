@@ -20,6 +20,15 @@ namespace Metro
     {
         private string name;
         private Label display = new Label();
+
+        // Інформаційне табло на станції
+        public virtual Label getDisplay()
+        {
+            return display;
+        }
+        public void setDisplay(string text) {
+            display.Content = text;
+        }
         
         public string Name
         {
@@ -27,8 +36,6 @@ namespace Metro
             set { name = value; }
         }
 
-        virtual public Ellipse draw() {
-
-        }
+        public abstract Rectangle draw();
     }
 }

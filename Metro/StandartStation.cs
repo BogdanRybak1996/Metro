@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Shapes;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -14,20 +14,15 @@ using System.Windows.Shapes;
 
 namespace Metro
 {
-    class Depot: Station
+    class StandartStation : Station
     {
-        private Rectangle rect;   // Для малювання
-        public Depot(string name)
+        private int left;           //Координати при емуляції
+        public int Left
         {
-            Name = name;
-            setDisplay(name);
+            get { return left; }
+            set { left = value; }
         }
-        public override Label getDisplay()      // В депо надписи будуть більшими
-        {
-            Label display = base.getDisplay();
-            display.FontSize = 16;
-            return display;
-        }
+        private Rectangle rect;
         public Rectangle getRect()
         {
             return rect;
@@ -35,10 +30,10 @@ namespace Metro
         public override Rectangle draw()
         {
             rect = new Rectangle();
-            rect.Width = 30;
+            rect.Width = 5;
             rect.Height = 50;
-            rect.Fill = new SolidColorBrush(Colors.Green);
+            rect.Fill = new SolidColorBrush(Colors.Blue);
             return rect;
-        }        
+        }
     }
 }
