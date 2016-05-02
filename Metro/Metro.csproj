@@ -62,6 +62,7 @@
     <Compile Include="MetroLine.cs" />
     <Compile Include="StandartStation.cs" />
     <Compile Include="Station.cs" />
+    <Compile Include="StationChooser.cs" />
     <Page Include="Emulator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -19,15 +19,38 @@ namespace Metro
     abstract class Station
     {
         private string name;
-        private Label display = new Label();
+        private TextBlock caption = new TextBlock();
+        private TextBlock display = new TextBlock();
+        private double captionHeight;
+        public double CaptionHeight{
+            get { return captionHeight; }
+            set { captionHeight = value; }
+            }
+        
+        public Station(string name)
+        {
+            this.name = name;
+            setCaption(name);
+            captionHeight = caption.ActualHeight;
+        }
+
+        // Табло з назвою станції
+        public virtual TextBlock getCaption()
+        {
+            return caption;
+        }
+        public virtual void setCaption(string text)
+        {
+            caption.Text = text;
+        }
 
         // Інформаційне табло на станції
-        public virtual Label getDisplay()
+        public virtual TextBlock getDisplay()
         {
             return display;
         }
         public void setDisplay(string text) {
-            display.Content = text;
+            display.Text = text;
         }
         
         public string Name

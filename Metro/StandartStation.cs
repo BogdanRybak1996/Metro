@@ -10,14 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Metro
 {
     class StandartStation : Station
     {
-        private int left;           //Координати при емуляції
-        public int Left
+        private double left;           //Координати при емуляції
+        private double top;
+        public StandartStation(string name) : base(name) { }            // Викликаємо батьківський конструктор
+        public double Top
+        {
+            get { return top; }
+            set { top = value; }
+        }
+        public double Left
         {
             get { return left; }
             set { left = value; }
@@ -27,12 +33,40 @@ namespace Metro
         {
             return rect;
         }
+        public override TextBlock getCaption()
+        {
+             TextBlock caption = base.getCaption();
+            if (MainWindow.CountOfStations < 10)
+            {
+                caption.FontSize = 12;
+                caption.Width = 120;
+            }
+            if(MainWindow.CountOfStations >=10 && MainWindow.CountOfStations <= 17)
+            {
+                caption.FontSize = 10;
+                caption.Width = 90;
+            }
+            if(MainWindow.CountOfStations > 17)
+            {
+                caption.FontSize = 9;
+                caption.Width = 73;
+            }
+
+            caption.TextAlignment = System.Windows.TextAlignment.Center;
+            caption.TextWrapping = System.Windows.TextWrapping.Wrap;
+            CaptionHeight = caption.ActualHeight;
+            return caption;
+        }
         public override Rectangle draw()
         {
             rect = new Rectangle();
-            rect.Width = 5;
-            rect.Height = 50;
-            rect.Fill = new SolidColorBrush(Colors.Blue);
+            rect.Width = 31.2;
+            rect.Height = 36.3;
+            BitmapImage img = new BitmapImage();
+            img.BeginInit();
+            img.UriSource = new Uri(@"src\station.png",UriKind.Relative);
+            img.EndInit();
+            rect.Fill = new ImageBrush(img);
             return rect;
         }
     }

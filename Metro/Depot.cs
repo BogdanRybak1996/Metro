@@ -17,16 +17,24 @@ namespace Metro
     class Depot: Station
     {
         private Rectangle rect;   // Для малювання
-        public Depot(string name)
+        public TextBlock getCaption(string textAligment)
         {
-            Name = name;
-            setDisplay(name);
+            TextBlock caption = base.getCaption();
+            caption.FontSize = 13;
+            if(textAligment == "left") {                    // Назви депо вирівнюються по різному
+                caption.TextAlignment = TextAlignment.Left;
+            }
+            if(textAligment == "right")
+            {
+                caption.TextAlignment = TextAlignment.Right;
+            }
+            caption.TextWrapping = TextWrapping.Wrap;
+            caption.Width = 95;
+            CaptionHeight = caption.ActualHeight;
+            return caption;
         }
-        public override Label getDisplay()      // В депо надписи будуть більшими
+        public Depot(string name) : base(name) // Викликаємо батьківський конструктор
         {
-            Label display = base.getDisplay();
-            display.FontSize = 16;
-            return display;
         }
         public Rectangle getRect()
         {
@@ -35,9 +43,13 @@ namespace Metro
         public override Rectangle draw()
         {
             rect = new Rectangle();
-            rect.Width = 30;
+            rect.Width = 50;
             rect.Height = 50;
-            rect.Fill = new SolidColorBrush(Colors.Green);
+            BitmapImage img = new BitmapImage();
+            img.BeginInit();
+            img.UriSource = new Uri(@"src\depot.png",UriKind.Relative);
+            img.EndInit();
+            rect.Fill = new ImageBrush(img);
             return rect;
         }        
     }

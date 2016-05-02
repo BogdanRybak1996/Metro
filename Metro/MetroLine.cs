@@ -20,8 +20,8 @@ namespace Metro
         public Line draw(int y)         // Повертає лінію, яку можна додати до контейнера в вікні
         {
             line.Stroke = Brushes.Black;
-            line.X1 = 50;                           // Стандартний відступ від країв вікна
-            line.X2 = SystemParameters.PrimaryScreenWidth - 50; // Ширина екрану                         
+            line.X1 = 60;                           // Стандартний відступ від країв вікна
+            line.X2 = SystemParameters.PrimaryScreenWidth - 60; // Ширина екрану                         
             line.Y1 = y;
             line.Y2 = y;
             line.HorizontalAlignment = HorizontalAlignment.Left;
