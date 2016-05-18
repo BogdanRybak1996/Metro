@@ -22,7 +22,9 @@ namespace Metro
     {
         private System.Windows.Threading.DispatcherTimer timer;
         private List<StandartStation> standStations;
-        private List<Train> trains = new List<Train>(){ new Train() };  // Test!!!!! No init!!!!
+        private List<Train> trains;
+        Clock mainClock;
+        Label allTimeLabel;
         public Emulator()
         {
             InitializeComponent();
@@ -71,17 +73,23 @@ namespace Metro
                 left += interval;
             }
             //Додаємо загальний годинник
-
+            mainClock = new Clock(MainWindow.StartHour, 0, 0);
+            mainClock.setLabelBigText();
+            allTimeLabel = mainClock.getLabel();
+            mainCanvas.Children.Add(allTimeLabel);
+            Canvas.SetLeft(allTimeLabel, 1250);
+            Canvas.SetTop(allTimeLabel, 50);
         }
 
         private void BStart_Click(object sender, RoutedEventArgs e)
         {
+            /*Запускаємо емуляцію*/
             BStart.IsEnabled = false;
             BStop.IsEnabled = true;
-            trains[0].draw("Left");
+            trains = new List<Train>();
             timer = new System.Windows.Threading.DispatcherTimer();
             timer.Tick += new EventHandler(TimerTick);
-            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Interval = new TimeSpan(0, 0, 0,1);     // Частота оновлення - 1 секунда
             timer.Start();
         }
         private void BStop_Click(object sender, RoutedEventArgs e)
@@ -95,18 +103,7 @@ namespace Metro
         /*Таймер виконує всю емуляцію*/
         private void TimerTick(object sender, EventArgs e)
         {
-
-             for(int i = 0; i < mainCanvas.Children.Count; i++)
-            {
-                if (mainCanvas.Children[i].Equals(trains[0].getEllipse()))
-                {
-                    mainCanvas.Children.RemoveAt(i);
-                }
-            }
-            Canvas.SetTop(trains[0].getEllipse(), (int)SystemParameters.PrimaryScreenHeight / 2 + 10);
-            Canvas.SetLeft(trains[0].getEllipse(), trains[0].Left);
-            trains[0].Left += 20;
-            mainCanvas.Children.Add(trains[0].getEllipse());           
+                
         }
     }
 }

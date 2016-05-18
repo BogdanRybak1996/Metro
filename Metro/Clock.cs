@@ -28,15 +28,14 @@ namespace Metro
 
         public Clock(int hour,int minutes,int seconds)              // Конструктор ініціалізує годинник заданим часом
         {
-            time = new DateTime(0, 0, 0, hour, minutes, seconds);
+            time = new DateTime(1, 1, 1, hour, minutes, seconds);
             Hour = time.Hour.ToString();
             Minutes = time.Minute.ToString();
             Seconds = time.Second.ToString();
             updateLabel();
         }
         public void addSeconds(int seconds) {                      //Додаємо секунди до годинники (так як крок моделювання в секундах, цього достатньо)
-            TimeSpan timespan = new TimeSpan(0, 0, seconds);
-            time.Add(timespan);
+            time = time.AddSeconds(seconds);
             Hour = time.Hour.ToString();
             Minutes = time.Minute.ToString();
             Seconds = time.Second.ToString();
@@ -44,12 +43,31 @@ namespace Metro
         }
         private void updateLabel()          // Метод, виключно для внутрішнього використання
         {
-            string labelText = Hour.ToString() + ":" + Minutes.ToString() + ":" + Seconds.ToString();
+            string hour = Hour.ToString();
+            string minutes = Minutes.ToString();
+            string seconds = Seconds.ToString();
+            if (Hour.ToString().Length == 1)
+            {
+                hour = "0" + Hour.ToString();
+            }
+            if (Minutes.ToString().Length == 1)
+            {
+                minutes = "0" + Minutes.ToString();
+            }
+            if (Seconds.ToString().Length == 1)
+            {
+                seconds = "0" + Seconds.ToString();
+            }
+            string labelText = hour + ":" + minutes + ":" + seconds;
             timeLabel.Content = labelText;
         }
         public Label getLabel()
         {
             return timeLabel;
+        }
+        public void setLabelBigText()
+        {
+            timeLabel.FontSize = 20;
         }
     }
 }
