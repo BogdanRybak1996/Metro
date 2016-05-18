@@ -11,6 +11,7 @@ namespace Metro
     {
         private static int stayTime;
         private static int interval;
+        private static int probabilityOfDelays;
 
         public static int StayTime
         {
@@ -29,16 +30,19 @@ namespace Metro
                 {
                     interval = 1;
                     stayTime = 2;
+                    probabilityOfDelays = 50;
                 }
                 if(time.Hour>12 && time.Hour <= 18)
                 {
                     interval = 3;
                     stayTime = 1;
+                    probabilityOfDelays = 30;
                 }
                 if (time.Hour > 18)
                 {
                     interval = 1;
                     stayTime = 2;
+                    probabilityOfDelays = 40;
                 }
             }
             else
@@ -47,16 +51,19 @@ namespace Metro
                 {
                     interval = 2;
                     stayTime = 3;
+                    probabilityOfDelays = 30;
                 }
                 if (time.Hour > 12 && time.Hour <= 18)
                 {
                     interval = 4;
                     stayTime = 2;
+                    probabilityOfDelays = 20;
                 }
                 if (time.Hour > 18)
                 {
                     interval = 2;
                     stayTime = 3;
+                    probabilityOfDelays = 30;
                 }
             }
         }

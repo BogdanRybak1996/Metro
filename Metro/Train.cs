@@ -19,6 +19,9 @@ namespace Metro
     {
         private Ellipse trainEllipse;
         private double left;
+        private int numberOfLastStation = -1;
+        
+        
         public double Left
         {
             get { return left; }
@@ -33,7 +36,7 @@ namespace Metro
             trainEllipse = new Ellipse();
             if(depot == "Right")
             {
-                left = SystemParameters.PrimaryScreenWidth - 60;
+                left = SystemParameters.PrimaryScreenWidth - 65;
             }
             else
             {

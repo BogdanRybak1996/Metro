@@ -6,9 +6,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Metro"
         mc:Ignorable="d"
-        Title="Стартове вікно" Height="372" Width="322" ResizeMode="NoResize">
+        Title="Стартове вікно" Height="437" Width="322" ResizeMode="NoResize">
     <Grid Margin="0,0,2,-19">
-        <Button x:Name="button" Content="Моделювання" HorizontalAlignment="Left" Margin="205,298,0,0" VerticalAlignment="Top" Width="88" Click="button_Click" Height="26"/>
+        <Button x:Name="button" Content="Моделювання" HorizontalAlignment="Left" Margin="203,361,0,0" VerticalAlignment="Top" Width="88" Click="button_Click" Height="26"/>
         <Label x:Name="LCaption" Content="Система керування метрополітеном" HorizontalAlignment="Left" Margin="43,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.526,0.346" FontWeight="Bold"/>
         <Label x:Name="LCountOfStations" Content="Виберіть кількість станцій:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.538"/>
         <ComboBox x:Name="CBcountOfStations" HorizontalAlignment="Left" Margin="100,72,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" SelectionChanged="CBcountOfStations_SelectionChanged">
@@ -36,5 +36,7 @@
         <ComboBox x:Name="CBHourStart" HorizontalAlignment="Left" Margin="100,188,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CBHourStart_SelectionChanged"/>
         <Label x:Name="LHourEnd" Content="Година кінця моделювання:" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="CBHourEnd" HorizontalAlignment="Left" Margin="100,246,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CBHourEnd_SelectionChanged"/>
+        <Label x:Name="LSpeed" Content="Швидкість моделювання:" HorizontalAlignment="Left" Margin="0,273,0,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="CBSpeed" HorizontalAlignment="Left" Margin="100,304,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CBSpeed_SelectionChanged"/>
     </Grid>
 </Window>

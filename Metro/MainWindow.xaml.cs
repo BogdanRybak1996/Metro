@@ -24,6 +24,7 @@ namespace Metro
         private static string typeOfDay;
         private static int startHour;
         private static int endHour;
+        private static string speed;
         public static int CountOfStations                     
         {
             get { return countOfStations; }
@@ -40,6 +41,10 @@ namespace Metro
         {
             get { return endHour; }
         }
+        public static string Speed
+        {
+            get { return speed; }
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -53,6 +58,13 @@ namespace Metro
                 CBHourEnd.Items.Add(i);
             }
             CBHourEnd.SelectedIndex = 0;
+
+            CBSpeed.Items.Add("30 мілісекунд");
+            CBSpeed.Items.Add("1 секунда");
+            CBSpeed.Items.Add("1.5 секунди");
+            CBSpeed.Items.Add("2 секунди");
+            CBSpeed.SelectedIndex = 1;              // Стандартно - 1 секунда
+            speed = CBSpeed.SelectedValue.ToString();
             startHour = Convert.ToInt32(CBHourStart.SelectedValue);
             endHour = Convert.ToInt32(CBHourEnd.SelectedValue);
             typeOfDay = CBDayOfWeek.SelectedValue.ToString();
@@ -93,6 +105,11 @@ namespace Metro
         private void CBDayOfWeek_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             typeOfDay = CBDayOfWeek.SelectedValue.ToString();
+        }
+
+        private void CBSpeed_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            speed = CBSpeed.SelectedValue.ToString();
         }
     }
 }

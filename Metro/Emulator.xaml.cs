@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Threading;
+
 
 namespace Metro
 {
@@ -22,9 +13,11 @@ namespace Metro
     {
         private System.Windows.Threading.DispatcherTimer timer;
         private List<StandartStation> standStations;
-        private List<Train> trains;
-        Clock mainClock;
-        Label allTimeLabel;
+        private List<Train> UpTrains;
+        private List<Train> DownTrains;
+        private Clock mainClock;
+        private Label allTimeLabel;
+
         public Emulator()
         {
             InitializeComponent();
@@ -86,10 +79,26 @@ namespace Metro
             /*Запускаємо емуляцію*/
             BStart.IsEnabled = false;
             BStop.IsEnabled = true;
-            trains = new List<Train>();
+            UpTrains = new List<Train>();
+            DownTrains = new List<Train>();
             timer = new System.Windows.Threading.DispatcherTimer();
             timer.Tick += new EventHandler(TimerTick);
-            timer.Interval = new TimeSpan(0, 0, 0,1);     // Частота оновлення - 1 секунда
+            if(MainWindow.Speed=="30 мілісекунд")               // switch - case не працює зі string
+            {
+                timer.Interval = new TimeSpan(0, 0, 0, 0, 30);     // Частота оновлення - 30 мілісекунд
+            }
+            if (MainWindow.Speed == "1 секунда")
+            {
+                timer.Interval = new TimeSpan(0, 0, 0, 1);     // Частота оновлення - 1 секунда
+            }
+            if (MainWindow.Speed == "1.5 секунди")
+            {
+                timer.Interval = new TimeSpan(0, 0, 0, 1, 30);     // Частота оновлення - 1.5 секунди
+            }
+            if (MainWindow.Speed == "2 секунди")
+            {
+                timer.Interval = new TimeSpan(0, 0, 0, 2, 0);     // Частота оновлення - 2 мілісекунд
+            }
             timer.Start();
         }
         private void BStop_Click(object sender, RoutedEventArgs e)
@@ -100,10 +109,34 @@ namespace Metro
             MessageBox.Show("", "Статистика");
             this.Close();
         }
-        /*Таймер виконує всю емуляцію*/
+        /*Таймер імітує кроки емуляції*/
         private void TimerTick(object sender, EventArgs e)
         {
-                
+            mainClock.addSeconds(30);           // Крок моделювання - 30 секунд
+
+            if (UpTrains.Count == 0)
+            {
+                Train firstUpTrain = new Train();
+                firstUpTrain.draw("Right");
+                Canvas.SetLeft(firstUpTrain.getEllipse(), firstUpTrain.Left);
+                Canvas.SetTop(firstUpTrain.getEllipse(), (int)SystemParameters.PrimaryScreenHeight / 2 - 20);
+                mainCanvas.Children.Add(firstUpTrain.getEllipse());
+                UpTrains.Add(firstUpTrain);
+            }
+            if (DownTrains.Count == 0)
+            {
+                Train firstDownTrain = new Train();
+                firstDownTrain.draw("Left");
+                Canvas.SetLeft(firstDownTrain.getEllipse(), firstDownTrain.Left);
+                Canvas.SetTop(firstDownTrain.getEllipse(), (int)SystemParameters.PrimaryScreenHeight / 2 + 10);
+                mainCanvas.Children.Add(firstDownTrain.getEllipse());
+                DownTrains.Add(firstDownTrain);
+            }
+
+            if (mainClock.Time.Hour == Convert.ToInt32(MainWindow.EndHour) || mainClock.Time.Hour == 0)
+            {
+                BStop_Click(new object(), new RoutedEventArgs());
+            }
         }
     }
 }
