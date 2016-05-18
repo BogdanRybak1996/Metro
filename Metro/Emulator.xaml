@@ -10,5 +10,7 @@
         WindowState="Maximized">
     <Canvas Name="mainCanvas">
         <Label x:Name="label" Content="Демонстрація роботи системи" HorizontalAlignment="Center"  FontSize="20" Padding="20"/>
+        <Button x:Name="BStart" Content="Старт" Canvas.Left="586" Canvas.Top="476" Width="75" Click="BStart_Click"/>
+        <Button x:Name="BStop" Content="Стоп" Canvas.Left="677" Canvas.Top="476" Width="75" IsEnabled="False" Click="BStop_Click"/>
     </Canvas>
 </Window>

@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Clock.cs" />
     <Compile Include="Depot.cs" />
     <Compile Include="Emulator.xaml.cs">
       <DependentUpon>Emulator.xaml</DependentUpon>
@@ -63,6 +64,7 @@
     <Compile Include="StandartStation.cs" />
     <Compile Include="Station.cs" />
     <Compile Include="StationChooser.cs" />
+    <Compile Include="Train.cs" />
     <Page Include="Emulator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

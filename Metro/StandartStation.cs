@@ -60,6 +60,12 @@ namespace Metro
         public override Rectangle draw()
         {
             rect = new Rectangle();
+            ToolTip tooltip = new ToolTip();
+            StackPanel toolTipPanel = new StackPanel();
+            toolTipPanel.Children.Add(new TextBlock { Text = "Табло станції "+"\""+Name+"\"",FontSize=16 });
+            tooltip.Content = toolTipPanel;
+            //Буде табло на кожній станції
+            rect.ToolTip = tooltip;
             rect.Width = 31.2;
             rect.Height = 36.3;
             BitmapImage img = new BitmapImage();
