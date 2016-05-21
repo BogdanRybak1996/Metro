@@ -52,6 +52,11 @@ namespace Metro
             {
                 CBHourStart.Items.Add(i);
             }
+            
+            CBDayOfWeek.Items.Add("Робочий день");
+            CBDayOfWeek.Items.Add("Вихідний");
+            CBDayOfWeek.SelectedIndex = 0;
+
             CBHourStart.SelectedIndex = 0;
             for(int i = Convert.ToInt32(CBHourStart.SelectedValue) + 1; i <= 24; i++)
             {
@@ -68,6 +73,8 @@ namespace Metro
             startHour = Convert.ToInt32(CBHourStart.SelectedValue);
             endHour = Convert.ToInt32(CBHourEnd.SelectedValue);
             typeOfDay = CBDayOfWeek.SelectedValue.ToString();
+
+
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

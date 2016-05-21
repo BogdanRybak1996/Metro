@@ -21,27 +21,31 @@ namespace Metro
         {
             get { return interval; }
         }
+        public static int ProbabilityOfDelays
+        {
+            get { return probabilityOfDelays; }
+        }
 
         public static void updateSchedule(DateTime time)
         {
-            if(MainWindow.TypeOfDay == "Будень")
+            if(MainWindow.TypeOfDay == "Робочий день")
             {
                 if(time.Hour >=6 && time.Hour <= 12)
                 {
-                    interval = 1;
-                    stayTime = 2;
+                    interval = 4;       // За основу взятий період моделювання (15 секунд), тобто тут - 1 хвилина
+                    stayTime = 8;
                     probabilityOfDelays = 50;
                 }
                 if(time.Hour>12 && time.Hour <= 18)
                 {
-                    interval = 3;
-                    stayTime = 1;
+                    interval = 12;
+                    stayTime = 4;
                     probabilityOfDelays = 30;
                 }
                 if (time.Hour > 18)
                 {
-                    interval = 1;
-                    stayTime = 2;
+                    interval = 2;
+                    stayTime = 8;
                     probabilityOfDelays = 40;
                 }
             }
@@ -49,20 +53,20 @@ namespace Metro
             {
                 if (time.Hour >= 6 && time.Hour <= 12)
                 {
-                    interval = 2;
-                    stayTime = 3;
+                    interval = 8;
+                    stayTime = 12;
                     probabilityOfDelays = 30;
                 }
                 if (time.Hour > 12 && time.Hour <= 18)
                 {
-                    interval = 4;
-                    stayTime = 2;
+                    interval = 16;
+                    stayTime = 8;
                     probabilityOfDelays = 20;
                 }
                 if (time.Hour > 18)
                 {
-                    interval = 2;
-                    stayTime = 3;
+                    interval = 8;
+                    stayTime = 12;
                     probabilityOfDelays = 30;
                 }
             }

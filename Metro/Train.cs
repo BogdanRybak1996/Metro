@@ -17,21 +17,67 @@ namespace Metro
 {
     class Train
     {
+        bool status = true;         // true - run, false - stay on station
         private Ellipse trainEllipse;
         private double left;
-        private int numberOfLastStation = -1;
-        
-        
+        private int numberOfNextStation = 0;
+        private int intervalTime;
+        private int stayTime;
+        private int timeOfDelay = 0;
+        private int timeAfterStart = 0;
+
+        public int TimeOfDelay
+        {
+            get { return timeOfDelay; }
+            set { timeOfDelay = value; }
+        }
+        public int IntervalTime
+        {
+            get { return intervalTime; }
+            set { intervalTime = value; }
+        }
+        public int NumberOfNextStation
+        {
+            get { return numberOfNextStation; }
+            set { numberOfNextStation = value; }
+        }
+        public bool Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
         public double Left
         {
             get { return left; }
             set { left = value; }
         }
-        public Train()       //Стандартна ініціалізація
+        public int TimeAfterStart
         {
-            draw("Right");
+            get { return timeAfterStart; }
+            set { timeAfterStart = value; }
         }
-        public Ellipse draw(string depot)
+        public int StayTime{
+            get { return stayTime; }
+            set { stayTime = value; }
+            }
+        public Train(string depot)       //Стандартна ініціалізація
+        {
+            draw(depot);            //"Right" or "Left"
+            intervalTime = Schedule.Interval;
+            stayTime = 0;
+
+        }
+        public void generateDelay()
+        {
+            Random rand = new Random(DateTime.Now.Second);
+            Random rand2 = new Random(DateTime.Now.Millisecond);
+            int prop = rand.Next(0, 100);
+            if (prop <= Schedule.ProbabilityOfDelays)
+            {
+                timeOfDelay += rand2.Next(30, 240);
+            }
+        }
+        private Ellipse draw(string depot)
         {
             trainEllipse = new Ellipse();
             if(depot == "Right")

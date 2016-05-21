@@ -17,6 +17,10 @@ namespace Metro
     {
         private double left;           //Координати при емуляції
         private double top;
+        DateTime durationLastTrain = new DateTime(1, 1, 1, 0, 0, 0);
+        StackPanel panel;
+        ToolTip tooltip;
+        TextBlock board = new TextBlock { Text = "Час останнього потягу: " + "-" + "\n" + "Час стоянки останнього потягу: " + "-",FontSize=12 };
         public StandartStation(string name) : base(name) { }            // Викликаємо батьківський конструктор
         public double Top
         {
@@ -57,13 +61,28 @@ namespace Metro
             CaptionHeight = caption.ActualHeight;
             return caption;
         }
+        public void updateBoard(DateTime lastTrain, int duration)
+        {
+            panel.Children.Remove(board);
+            DateTime localLastTrain = new DateTime(1, 1, 1, lastTrain.Hour, lastTrain.Minute, lastTrain.Second);
+            durationLastTrain = durationLastTrain.AddSeconds(duration);
+            board.Text = "Час відправки останнього потягу: " + localLastTrain.ToString("T") + "\n" + "Час стоянки останнього потягу: " + durationLastTrain.ToString("T");
+            panel.Children.Add(board);
+            tooltip.Content = panel;
+            rect.ToolTip = tooltip;
+        }
+        public void resetDurationLastTrain()
+        {
+            durationLastTrain = new DateTime(1,1,1,0,0,0);
+        }
         public override Rectangle draw()
         {
             rect = new Rectangle();
-            ToolTip tooltip = new ToolTip();
-            StackPanel toolTipPanel = new StackPanel();
-            toolTipPanel.Children.Add(new TextBlock { Text = "Табло станції "+"\""+Name+"\"",FontSize=16 });
-            tooltip.Content = toolTipPanel;
+            tooltip = new ToolTip();
+            panel = new StackPanel();
+            panel.Children.Add(new TextBlock { Text = "Табло станції "+"\""+Name+"\"",FontSize=16 });
+            panel.Children.Add(board);
+            tooltip.Content = panel;
             //Буде табло на кожній станції
             rect.ToolTip = tooltip;
             rect.Width = 31.2;

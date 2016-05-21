@@ -28,10 +28,7 @@
             <ListBoxItem Content="20"/>
         </ComboBox>
         <Label x:Name="LDayOfWeek" Content="Виберіть день тижня:" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="CBDayOfWeek" HorizontalAlignment="Left" SelectedIndex="0" Margin="100,130,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CBDayOfWeek_SelectionChanged">
-            <ListBoxItem Content="Будень"/>
-            <ListBoxItem Content="Вихідний"/>
-        </ComboBox>
+        <ComboBox x:Name="CBDayOfWeek" HorizontalAlignment="Left" SelectedIndex="0" Margin="100,130,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CBDayOfWeek_SelectionChanged"/>
         <Label x:Name="LHour" Content="Година початку моделювання:" HorizontalAlignment="Left" Margin="10,157,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="CBHourStart" HorizontalAlignment="Left" Margin="100,188,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="CBHourStart_SelectionChanged"/>
         <Label x:Name="LHourEnd" Content="Година кінця моделювання:" HorizontalAlignment="Left" Margin="10,215,0,0" VerticalAlignment="Top"/>
