@@ -130,84 +130,153 @@ namespace Metro
                 mainCanvas.Children.Add(firstDownTrain.getEllipse());
                 downTrains.Add(firstDownTrain);
             }
-            for (int i = 0; i < upTrains.Count; i++)
+            // Оновлюємо стан лінії
+            LineUpdate("Right",upTrains);
+            LineUpdate("Left", downTrains);
+            if (mainClock.Time.Hour == Convert.ToInt32(MainWindow.EndHour) || mainClock.Time.Hour == 0)
             {
-                upTrains[i].TimeAfterStart += 15;
+                //Подія завершення моделювання (використовується подія кліка на кнопку "Стоп")
+                BStop_Click(new object(), new RoutedEventArgs());
+            }
+        }
+
+        /*Метод обновляє одну сторону лінії метро
+         * Використовується виключно всередині класу
+         Параметри: рядок з інформацією про сторону лінії, масив з відповідними потягами*/
+        private void LineUpdate(string side,List<Train> currentTrains)
+        {
+            for (int i = 0; i < currentTrains.Count; i++)
+            {
+                currentTrains[i].TimeAfterStart += 15;
                 bool endOfMovement = false;     // Якщо їдемо в депо - true
-                if (upTrains[i].Status == true)     // Якщо поїзд рухається
+                if (currentTrains[i].Status == true)     // Якщо поїзд рухається
                 {
                     double movePixels = 0;
                     // Якщо поїзд тільки виїхав (ще не був на жодній проміжній станції)
-                    if (upTrains[i].NumberOfNextStation == 0)
+                    if (currentTrains[i].NumberOfNextStation == 0)
                     {
-                        movePixels = (SystemParameters.PrimaryScreenWidth - 65 - standStations[standStations.Count - 1].Left) / upTrains[i].IntervalTime;
-                        upTrains[i].Left -= movePixels;
-                        Canvas.SetLeft(upTrains[i].getEllipse(), upTrains[i].Left);
+                        if (side == "Right")
+                        {
+                            movePixels = (SystemParameters.PrimaryScreenWidth - 65 - standStations[standStations.Count - 1].Left) / currentTrains[i].IntervalTime;
+                            currentTrains[i].Left -= movePixels;
+                        }
+                        if(side == "Left")
+                        {
+                            movePixels = (standStations[0].Left - 60) / currentTrains[i].IntervalTime;
+                            currentTrains[i].Left += movePixels;
+                        }
+                        Canvas.SetLeft(currentTrains[i].getEllipse(), currentTrains[i].Left);
                     }
                     // Якщо поїзд уже відвідував проміжні станції
                     else
                     {
-                        if (upTrains[i].NumberOfNextStation != standStations.Count)
+                        if (currentTrains[i].NumberOfNextStation != standStations.Count)
                         {
-                            movePixels = (standStations[standStations.Count-1-upTrains[i].NumberOfNextStation+1].Left - standStations[standStations.Count - 1 - upTrains[i].NumberOfNextStation].Left) / upTrains[i].IntervalTime;
-                            upTrains[i].Left -= movePixels;
-                            Canvas.SetLeft(upTrains[i].getEllipse(), upTrains[i].Left);
+                            if (side == "Right")
+                            {
+                                movePixels = (standStations[standStations.Count - 1 - currentTrains[i].NumberOfNextStation + 1].Left - standStations[standStations.Count - 1 - currentTrains[i].NumberOfNextStation].Left) / currentTrains[i].IntervalTime;
+                                currentTrains[i].Left -= movePixels;
+                            }
+                            if(side == "Left")
+                            {
+                                movePixels = (standStations[currentTrains[i].NumberOfNextStation].Left - standStations[currentTrains[i].NumberOfNextStation-1].Left)/currentTrains[i].IntervalTime;
+                                currentTrains[i].Left += movePixels;
+                            }
+                            Canvas.SetLeft(currentTrains[i].getEllipse(), currentTrains[i].Left);
                         }
                         else   // Якщо поїзд їде в депо
                         {
                             endOfMovement = true;
-                            movePixels = (standStations[0].Left - 10) / upTrains[i].IntervalTime;
-                            upTrains[i].Left -= movePixels;
-                            Canvas.SetLeft(upTrains[i].getEllipse(), upTrains[i].Left);
+                            if (side == "Right")
+                            {
+                                movePixels = (standStations[0].Left - 10) / currentTrains[i].IntervalTime;
+                                currentTrains[i].Left -= movePixels;
+                            }
+                            if(side == "Left")
+                            {
+                                movePixels = (SystemParameters.PrimaryScreenWidth - 55 - standStations[standStations.Count - 1].Left) / currentTrains[i].IntervalTime;
+                                currentTrains[i].Left += movePixels;
+                            }
+                            Canvas.SetLeft(currentTrains[i].getEllipse(), currentTrains[i].Left);
                         }
                     }
-                    if(endOfMovement && upTrains[i].Left <= 10)
+                    /*Якщо доїхали до депо*/
+                    if (endOfMovement && (currentTrains[i].Left <= 15 || currentTrains[i].Left >= SystemParameters.PrimaryScreenWidth-60))
                     {
-                        mainCanvas.Children.Remove(upTrains[i].getEllipse());
-                        upTrains.RemoveAt(i);
+                        mainCanvas.Children.Remove(currentTrains[i].getEllipse());
+                        currentTrains.RemoveAt(i);
                         i--;
                         continue;
                     }
                     if (!endOfMovement)
                     {
-                        if ((upTrains[i].Left - standStations[standStations.Count - 1 - upTrains[i].NumberOfNextStation].Left)<=2 || (upTrains[i].Left - standStations[standStations.Count - 1 - upTrains[i].NumberOfNextStation].Left) <= -2)
+                        double razn=0;
+                        if(side == "Right")
+                        {
+                            razn = currentTrains[i].Left - standStations[standStations.Count - 1 - currentTrains[i].NumberOfNextStation].Left;
+                        }
+                        if(side == "Left")
+                        {
+                            razn = currentTrains[i].Left - standStations[currentTrains[i].NumberOfNextStation].Left;
+                        }
+                        /*Похибка в 2 пікселі*/
+                        if (razn <= 2 && razn >= -2)
                         { // Якщо доїхали до станції
-                            standStations[standStations.Count - upTrains[i].NumberOfNextStation - 1].updateBoard(mainClock.Time,0);
-                            upTrains[i].Left = standStations[standStations.Count - 1 - upTrains[i].NumberOfNextStation].Left;
-                            Canvas.SetLeft(upTrains[i].getEllipse(), upTrains[i].Left);
-                            upTrains[i].NumberOfNextStation++;
-                            upTrains[i].Status = false;             // Поїзд стоїть
+                            if (side == "Right")
+                            {
+                                standStations[standStations.Count - currentTrains[i].NumberOfNextStation - 1].updateBoard(mainClock.Time, 0);
+                                currentTrains[i].Left = standStations[standStations.Count - 1 - currentTrains[i].NumberOfNextStation].Left;
+                            }
+                            if(side == "Left")
+                            {
+                                standStations[currentTrains[i].NumberOfNextStation].updateBoard(mainClock.Time, 0);
+                            }
+                            Canvas.SetLeft(currentTrains[i].getEllipse(), currentTrains[i].Left);
+                            currentTrains[i].NumberOfNextStation++;
+                            currentTrains[i].Status = false;             // Поїзд стоїть
                             return;
                         }
                     }
                 }
 
 
-                if(upTrains[i].Status == false)     // Якщо поїзд стоїть
+                if (currentTrains[i].Status == false)     // Якщо поїзд стоїть
                 {
-                    upTrains[i].StayTime += 1;
-                    standStations[standStations.Count - 1 - upTrains[i].NumberOfNextStation + 1].updateBoard(mainClock.Time, 15);
-                    if (upTrains[i].StayTime >= Schedule.StayTime + upTrains[i].TimeOfDelay)
+                    currentTrains[i].StayTime += 1;
+                    if (side == "Right")
                     {
-                        upTrains[i].Status = true;
-                        upTrains[i].StayTime = 0;
+                        standStations[standStations.Count - 1 - currentTrains[i].NumberOfNextStation + 1].updateBoard(mainClock.Time, 15);
+                    }
+                    if(side == "Left")
+                    {
+                        standStations[currentTrains[i].NumberOfNextStation - 1].updateBoard(mainClock.Time, 15);
+                    }
+                    if (currentTrains[i].StayTime >= Schedule.StayTime + currentTrains[i].TimeOfDelay)
+                    {
+                        currentTrains[i].Status = true;
+                        currentTrains[i].StayTime = 0;
                     }
                 }
-                if (i == upTrains.Count - 1)    // Додаємо новий потяг, якщо це потрібно
+                if (i == currentTrains.Count - 1)    // Додаємо новий потяг, якщо це потрібно
                 {
-                    if (upTrains[i].TimeAfterStart >= Schedule.Interval*15 + Schedule.StayTime*15)
+                    if (currentTrains[i].TimeAfterStart >= Schedule.Interval * 15 + Schedule.StayTime * 15)
                     {
-                        Train newUpTrain = new Train("Right");
-                        Canvas.SetLeft(newUpTrain.getEllipse(), newUpTrain.Left);
-                        Canvas.SetTop(newUpTrain.getEllipse(), (int)SystemParameters.PrimaryScreenHeight / 2 - 20);
-                        mainCanvas.Children.Add(newUpTrain.getEllipse());
-                        upTrains.Add(newUpTrain);
+                        Train newTrain = null;
+                        if (side == "Right")
+                        {
+                            newTrain = new Train("Right");
+                            Canvas.SetTop(newTrain.getEllipse(), (int)SystemParameters.PrimaryScreenHeight / 2 - 20);
+                        }
+                        if(side == "Left")
+                        {
+                            newTrain = new Train("Left");
+                            Canvas.SetTop(newTrain.getEllipse(), (int)SystemParameters.PrimaryScreenHeight / 2 + 10);
+                        }
+                        Canvas.SetLeft(newTrain.getEllipse(), newTrain.Left);                        
+                        mainCanvas.Children.Add(newTrain.getEllipse());
+                        currentTrains.Add(newTrain);
                     }
                 }
-            }
-            if (mainClock.Time.Hour == Convert.ToInt32(MainWindow.EndHour) || mainClock.Time.Hour == 0)
-            {
-                BStop_Click(new object(), new RoutedEventArgs());
             }
         }
     }

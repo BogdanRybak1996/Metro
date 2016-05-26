@@ -97,16 +97,5 @@ namespace Metro
         {
             return trainEllipse;
         }
-        public DoubleAnimation getMoveAnimation(double To,int duration)
-        {
-            DoubleAnimation db = new DoubleAnimation();
-            db.To = To;
-            db.Duration = TimeSpan.FromSeconds(duration);
-            left = To;
-            db.AccelerationRatio = 0.4;
-            db.DecelerationRatio = 0.4;
-            db.FillBehavior = FillBehavior.HoldEnd;
-            return db;
-        }
     }
 }

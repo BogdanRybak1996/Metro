@@ -65,6 +65,10 @@ namespace Metro
         {
             panel.Children.Remove(board);
             DateTime localLastTrain = new DateTime(1, 1, 1, lastTrain.Hour, lastTrain.Minute, lastTrain.Second);
+            if(duration == 0)
+            {
+                durationLastTrain = new DateTime(1,1,1,0,0,0);
+            }
             durationLastTrain = durationLastTrain.AddSeconds(duration);
             board.Text = "Час відправки останнього потягу: " + localLastTrain.ToString("T") + "\n" + "Час стоянки останнього потягу: " + durationLastTrain.ToString("T");
             panel.Children.Add(board);

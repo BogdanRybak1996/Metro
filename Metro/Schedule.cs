@@ -32,20 +32,20 @@ namespace Metro
             {
                 if(time.Hour >=6 && time.Hour <= 12)
                 {
-                    interval = 4;       // За основу взятий період моделювання (15 секунд), тобто тут - 1 хвилина
-                    stayTime = 8;
+                    interval = 6;       // За основу взятий період моделювання (15 секунд)
+                    stayTime = 16;
                     probabilityOfDelays = 50;
                 }
                 if(time.Hour>12 && time.Hour <= 18)
                 {
                     interval = 12;
-                    stayTime = 4;
+                    stayTime = 8;
                     probabilityOfDelays = 30;
                 }
                 if (time.Hour > 18)
                 {
-                    interval = 2;
-                    stayTime = 8;
+                    interval = 6;
+                    stayTime = 12;
                     probabilityOfDelays = 40;
                 }
             }
