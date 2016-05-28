@@ -24,8 +24,14 @@ namespace Metro
         private int intervalTime;
         private int stayTime;
         private int timeOfDelay = 0;
+        private int numberOfSteps = 0;
         private int timeAfterStart = 0;
 
+        public int NumberOfSteps
+        {
+            get { return numberOfSteps; }
+            set { numberOfSteps = value; }
+        }
         public int TimeOfDelay
         {
             get { return timeOfDelay; }
@@ -74,7 +80,7 @@ namespace Metro
             int prop = rand.Next(0, 100);
             if (prop <= Schedule.ProbabilityOfDelays)
             {
-                timeOfDelay += rand2.Next(30, 240);
+                timeOfDelay += rand2.Next(1, 8);
             }
         }
         private Ellipse draw(string depot)
