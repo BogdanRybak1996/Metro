@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Shapes;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -20,7 +13,7 @@ namespace Metro
         DateTime durationLastTrain = new DateTime(1, 1, 1, 0, 0, 0);
         StackPanel panel;
         ToolTip tooltip;
-        TextBlock board = new TextBlock { Text = "Час останнього потягу: " + "-" + "\n" + "Час стоянки останнього потягу: " + "-",FontSize=12 };
+        TextBlock board = new TextBlock { Text = "Час відправки останнього потягу: " + "-" + "\n" + "Час стоянки останнього потягу: " + "-",FontSize=12 };
         public StandartStation(string name) : base(name) { }            // Викликаємо батьківський конструктор
         public double Top
         {

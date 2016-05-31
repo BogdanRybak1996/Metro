@@ -20,7 +20,6 @@ namespace Metro
     {
         private string name;
         private TextBlock caption = new TextBlock();
-        private TextBlock display = new TextBlock();
         private double captionHeight;
         public double CaptionHeight{
             get { return captionHeight; }
@@ -44,14 +43,6 @@ namespace Metro
             caption.Text = text;
         }
 
-        // Інформаційне табло на станції
-        public virtual TextBlock getDisplay()
-        {
-            return display;
-        }
-        public void setDisplay(string text) {
-            display.Text = text;
-        }
         
         public string Name
         {

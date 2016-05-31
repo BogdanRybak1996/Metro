@@ -1,0 +1,16 @@
+E:\Docs\Course\Metro\Metro\bin\Release\Metro.exe.config
+E:\Docs\Course\Metro\Metro\bin\Release\Metro.exe
+E:\Docs\Course\Metro\Metro\bin\Release\Metro.pdb
+E:\Docs\Course\Metro\Metro\obj\Release\Metro.csprojResolveAssemblyReference.cache
+E:\Docs\Course\Metro\Metro\obj\Release\Emulator.g.cs
+E:\Docs\Course\Metro\Metro\obj\Release\MainWindow.g.cs
+E:\Docs\Course\Metro\Metro\obj\Release\App.g.cs
+E:\Docs\Course\Metro\Metro\obj\Release\Metro_MarkupCompile.cache
+E:\Docs\Course\Metro\Metro\obj\Release\Metro_MarkupCompile.lref
+E:\Docs\Course\Metro\Metro\obj\Release\Emulator.baml
+E:\Docs\Course\Metro\Metro\obj\Release\MainWindow.baml
+E:\Docs\Course\Metro\Metro\obj\Release\Metro.g.resources
+E:\Docs\Course\Metro\Metro\obj\Release\Metro.Properties.Resources.resources
+E:\Docs\Course\Metro\Metro\obj\Release\Metro.csproj.GenerateResource.Cache
+E:\Docs\Course\Metro\Metro\obj\Release\Metro.exe
+E:\Docs\Course\Metro\Metro\obj\Release\Metro.pdb

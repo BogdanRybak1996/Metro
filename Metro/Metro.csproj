@@ -63,6 +63,7 @@
     <Compile Include="MetroLine.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="StandartStation.cs" />
+    <Compile Include="Stat.cs" />
     <Compile Include="Station.cs" />
     <Compile Include="StationChooser.cs" />
     <Compile Include="Train.cs" />

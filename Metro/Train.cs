@@ -26,7 +26,14 @@ namespace Metro
         private int timeOfDelay = 0;
         private int numberOfSteps = 0;
         private int timeAfterStart = 0;
-
+        private int economedTime = 0;
+        
+        public int EconomedTime
+        {
+            get { return economedTime; }
+            set { economedTime = value;}
+        }
+                
         public int NumberOfSteps
         {
             get { return numberOfSteps; }
@@ -75,13 +82,17 @@ namespace Metro
         }
         public void generateDelay()
         {
-            Random rand = new Random(DateTime.Now.Second);
+            Random rand = new Random(new Random(DateTime.Now.Millisecond).Next());
             Random rand2 = new Random(DateTime.Now.Millisecond);
             int prop = rand.Next(0, 100);
+            int del = rand2.Next(1, 16);
             if (prop <= Schedule.ProbabilityOfDelays)
             {
-                timeOfDelay += rand2.Next(1, 8);
+                timeOfDelay += del;
+                Stat.Count++;
+                Stat.LengthOfDelay = del;
             }
+
         }
         private Ellipse draw(string depot)
         {
@@ -98,6 +109,14 @@ namespace Metro
             trainEllipse.Height = 10;
             trainEllipse.Fill = Brushes.Green;
             return trainEllipse;
+        }
+        public void makeRed()
+        {
+            trainEllipse.Fill = Brushes.Red;
+        }
+        public void makeGreen()
+        {
+            trainEllipse.Fill = Brushes.Green;
         }
         public Ellipse getEllipse()
         {

@@ -85,6 +85,7 @@ namespace Metro
             }
             Emulator em = new Emulator();
             em.Show();
+            this.Close();
         }
 
         private void CBcountOfStations_SelectionChanged(object sender, SelectionChangedEventArgs e)

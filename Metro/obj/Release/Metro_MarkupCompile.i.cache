@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-E:\Docs\Course\Metro\Metro\obj\Debug\
+E:\Docs\Course\Metro\Metro\obj\Release\
 Metro
 none
 false
-DEBUG;TRACE
+TRACE
 E:\Docs\Course\Metro\Metro\App.xaml
 2951802565
 
-19-1319200118
+181996571822
 13738642453
 Emulator.xaml;MainWindow.xaml;
 
